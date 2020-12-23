@@ -1,4 +1,4 @@
-module github.com/1Password/srp
+module github.com/meyerhp/srp
 
 go 1.15
 
