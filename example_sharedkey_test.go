@@ -119,7 +119,7 @@ func Example() {
 
 	/*** Part 3: Server and client prove they have the same key ***/
 
-	// Server computes a proof, and sends it to the client
+	// Client computes a proof, and sends it to the client
 
 	clientProof, err := client.M(salt, username)
 	if err != nil {
