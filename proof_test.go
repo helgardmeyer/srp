@@ -47,13 +47,13 @@ func TestM(t *testing.T) {
 	server := new(SRP).copy(sampleSRP)
 	server.isServer = true
 
-	M, err := server.M(salt, username)
+	M, err := client.M(salt, username)
 	if err != nil {
 		t.Errorf("server failed to produce M: %s", err)
 	}
 
-	if !client.GoodServerProof(salt, username, M) {
-		t.Errorf("client rejected server proof")
+	if !server.GoodClientProof(salt, username, M) {
+		t.Errorf("server rejected client proof")
 	}
 
 }
@@ -97,7 +97,7 @@ func (z *SRP) copy(x *SRP) *SRP {
 
 	z.isServer = x.isServer
 	z.badState = x.badState
-	z.isServerProved = x.isServerProved
+	z.isClientProved = x.isClientProved
 	z.m = x.m
 	z.cProof = x.cProof
 

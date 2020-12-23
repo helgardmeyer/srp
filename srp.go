@@ -62,7 +62,7 @@ type SRP struct {
 	key              []byte   // H(preMasterSecret)
 	isServer         bool
 	badState         bool
-	isServerProved   bool   // whether server has proved knowledge of key
+	isClientProved   bool   // whether client has proved knowledge of key
 	m                []byte // M is server proof knowledge of key
 	cProof           []byte // Client proof of knowledge of key
 }
@@ -121,7 +121,7 @@ func newSRP(serverSide bool, group *Group, xORv *big.Int, k *big.Int) *SRP {
 
 		m:              nil,
 		cProof:         nil,
-		isServerProved: false,
+		isClientProved: false,
 	}
 
 	if s.isServer {
