@@ -119,30 +119,30 @@ func Example() {
 
 	/*** Part 3: Server and client prove they have the same key ***/
 
-	// Server computes a proof, and sends it to the client
+	// Client computes a proof, and sends it to the client
 
-	serverProof, err := server.M(salt, username)
+	clientProof, err := client.M(salt, username)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	// client tests tests that the server sent a good proof
-	if !client.GoodServerProof(salt, username, serverProof) {
+	// server tests tests that the client sent a good proof
+	if !server.GoodClientProof(salt, username, clientProof) {
 		err = fmt.Errorf("bad proof from server")
 		fmt.Println(err)
-		// Client must bail and not send a its own proof back to the server
+		// Server must bail and not send a its own proof back to the server
 		log.Fatal(err)
 	}
 
-	// Only after having a valid server proof will the client construct its own
-	clientProof, err := client.ClientProof()
+	// Only after having a valid client proof will the server construct its own
+	serverProof, err := server.ServerProof()
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal(err)
 	}
 
-	// client sends its proof to the server. Server checks
-	if !server.GoodClientProof(clientProof) {
+	// server sends its proof to the client. Client checks
+	if !client.GoodServerProof(serverProof) {
 		err = fmt.Errorf("bad proof from client")
 		fmt.Println(err)
 		log.Fatal(err)
